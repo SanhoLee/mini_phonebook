@@ -57,6 +57,22 @@ int main()
             free(p1);
             fclose(fp);
         }
+        else if (userChoice == 2)
+        {
+            printf("search");
+        }
+        else if (userChoice == 3)
+        {
+            printf("update");
+        }
+        else if (userChoice == 4)
+        {
+            printf("delete");
+        }
+        else if (userChoice == 5)
+        {
+            printf("showAll");
+        }
         else if (userChoice == 9)
         {
             printf("***** PROGRAM END ***** \n");
@@ -67,13 +83,11 @@ int main()
             printf("INPUT ERROR ! SELECT FROM MENU ! \n");
             return 1;
         }
+        /*
+        문자 입력으로 잘못 받을 경우, 버퍼에 이전에 입력했던 정수형 데이터를 가지고 있어서, else로 처리하지 못함.
+        그렇기 때문에, userChoice 인덱스 값을 0으로 초기화 해줌.
+        */
+        userChoice = 0;
     };
-
-    // 구조체 배열 정의?
-    // struct person p1[num - 1];
-
-    // Asking Info for n-1 times.
-    // askingInfo(num, p1);
-
     return 0;
 }
