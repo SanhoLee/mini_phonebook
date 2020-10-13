@@ -1,3 +1,4 @@
 *.csv
 .vscode
 main.dSYM
+main

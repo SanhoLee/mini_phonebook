@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // malloc, free가 포함된 라이브러리
 #include <string.h>
+#define FILE_NAME "phone-number.csv"
 
 typedef struct
 {
@@ -43,7 +44,7 @@ int main()
 
             // 파일 입출력, csv file format
             FILE *fp;
-            fp = fopen("phone-number.csv", "a");
+            fp = fopen(FILE_NAME, "a");
 
             if (fp == NULL)
             {
@@ -71,7 +72,24 @@ int main()
         }
         else if (userChoice == 5)
         {
-            printf("showAll");
+            printf("\n*----- showAll -----* \n\n");
+            FILE *fp;
+            fp = fopen(FILE_NAME, "r");
+            if (fp == NULL)
+            {
+                printf("Write Error. \n");
+                return 0;
+            }
+
+            i = 0;
+            while (!feof(fp))
+            {
+                char oneLine[100] = "";
+                fgets(oneLine, 100, fp);
+                printf("%d. %s", i + 1, oneLine);
+                i++;
+            }
+            fclose(fp);
         }
         else if (userChoice == 9)
         {
