@@ -60,7 +60,31 @@ int main()
         }
         else if (userChoice == 2)
         {
-            printf("search");
+            char searchBy;
+            getchar();
+            printf("\n*----- search -----* \n\n");
+            printf("( 1. name ?  2. Phone Number ? C : Cancel ) : ");
+            scanf("%c", &searchBy);
+            if ((searchBy == 'c') || (searchBy == 'C'))
+            {
+                printf("\n Canceled...\n");
+                continue;
+            }
+            else if (searchBy == '1')
+            {
+                // searching by name.
+                printf("\n searching by name...\n");
+            }
+            else if (searchBy == '2')
+            {
+                // searching by phone number.
+                printf("\n searching by number...\n");
+            }
+            else
+            {
+                printf("\n Input Error. You should select from specified number or C(cancel) \n");
+                continue;
+            }
         }
         else if (userChoice == 3)
         {
@@ -89,6 +113,7 @@ int main()
                 printf("%d. %s", i + 1, oneLine);
                 i++;
             }
+            printf("\n\nLIST END\n");
             fclose(fp);
         }
         else if (userChoice == 9)
