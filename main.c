@@ -2,14 +2,12 @@
 #include <stdlib.h> // malloc, free가 포함된 라이브러리
 #include <string.h>
 #include "global.h"
-
-int add_person();
-person *splitString(char *originalString);
+#include "menu.h"
+#include "string_.h"
 
 int main()
 {
     char userChoice;
-    int num;
     int i;
 
     while (1)
@@ -39,7 +37,6 @@ int main()
             */
             char searchBy;
             char term[20] = "";
-            char singleLine[40] = "";
             printf("\n*----- search -----* \n\n");
             printf("( 1. name ?  2. Phone Number ? C : Cancel ) : ");
             scanf("%c", &searchBy);
@@ -63,15 +60,32 @@ int main()
                     printf("No file on specified diretory. \n");
                     return 0;
                 }
+                else
+                {
+                    while (!feof(fp))
+                    {
+                        char singleLine[40] = "";
+                        // fgets(singleLine, 40, fp);
+                        if (fgets(singleLine, 40, fp))
+                        {
+                            person *p21 = splitString(singleLine);
+                            printf("check read on struct elemet ---+ \n");
+                            printf("name: %s\n", p21->name);
+                            printf("number: %s\n", p21->pNumber);
 
-                fgets(singleLine, 40, fp);
-                person *p21 = splitString(singleLine);
-                printf("\ncheck read on struct elemet ---+ \n");
-                printf("name: %s\n", p21->name);
-                printf("number: %s\n", p21->pNumber);
+                            // To do : filtering p21 info by name.....
+                            // add filtered data into result array.
 
-                free(p21);
-                fclose(fp);
+                            free(p21);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    fclose(fp);
+                }
             }
             else if (searchBy == '2')
             {
@@ -131,61 +145,4 @@ int main()
         userChoice = 0;
     };
     return 0;
-}
-
-int add_person()
-{
-    /* 
-    add_person function
-    in : name(str), phone number(str)
-    out : write the info on csv file.
-    */
-    person *p1 = malloc(sizeof(person));
-    printf("\n NAME : ");
-    scanf("%s", p1->name);
-    getchar();
-    printf(" PHONE NUMBER : ");
-    scanf("%s", p1->pNumber);
-    getchar();
-
-    // 파일 입출력, csv file format
-    FILE *fp;
-    fp = fopen(FILE_NAME, "a");
-
-    if (fp == NULL)
-    {
-        printf("Write Error \n");
-        return 1;
-    }
-    fputs(p1->name, fp);
-    fputs(",", fp);
-    fputs(p1->pNumber, fp);
-    fputs("\n", fp);
-    free(p1);
-    fclose(fp);
-
-    return 0;
-}
-
-person *splitString(char *originalString)
-{
-    int i = 0;
-
-    person *p = malloc(sizeof(person));
-    char *result;
-    char *strArr[2];
-
-    result = strtok(originalString, delimeter);
-    while (result != NULL)
-    {
-        strArr[i] = result;
-        result = strtok(NULL, delimeter);
-        i++;
-    }
-
-    // save on struct address by using array elemet.
-    strcpy(p->name, strArr[0]);
-    strcpy(p->pNumber, strArr[1]);
-
-    return p;
 }
