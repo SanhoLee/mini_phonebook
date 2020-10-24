@@ -4,25 +4,25 @@
 #include "global.h"
 #include "string_.h"
 
-person *splitString(char *originalString)
+person *splitString(char *original_string)
 {
     int i = 0;
 
     person *p = malloc(sizeof(person));
     char *result;
-    char *strArr[2];
+    char *str_array[2];
 
-    result = strtok(originalString, delimeter);
+    result = strtok(original_string, delimeter);
     while (result != NULL)
     {
-        strArr[i] = result;
+        str_array[i] = result;
         result = strtok(NULL, delimeter);
         i++;
     }
 
     // save on struct address by using array elemet.
-    strcpy(p->name, strArr[0]);
-    strcpy(p->pNumber, strArr[1]);
+    strcpy(p->name, str_array[0]);
+    strcpy(p->pNumber, str_array[1]);
 
     return p;
 }

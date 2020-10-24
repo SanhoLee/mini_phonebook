@@ -3,6 +3,6 @@
 
 #include "global.h"
 
-person *splitString(char *originalString);
+person *splitString(char *original_string);
 
 #endif
