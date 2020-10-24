@@ -44,7 +44,7 @@ int searchInfo()
     /*
 
     search_input can be name or phoneNumber.
-    input  : index number for searching method.
+    input  : searched_index number for searching method.
         c or C - cancel searching method.
         1 - method by name
         2 - method by phone number
@@ -95,19 +95,28 @@ int searchInfo()
             }
             else
             {
+                // 구조체를 자료형을 가지는 배열을 선언
+                // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
+                person *filtered_person_array[30];
+                int searched_index = 0;
+
                 while (!feof(fp))
                 {
                     char single_line[40] = "";
                     if (fgets(single_line, 40, fp))
                     {
+                        // split line by delimeter , and make struct data.
                         person *p21 = splitString(single_line);
-
                         // compare two string element. if true, it returns 0.
                         if (!strcmp(search_input, p21->name))
                         {
-                            printf("\ncorrect ! \n");
-                            printf("name: %s\n", p21->name);
-                            printf("number: %s\n", p21->pNumber);
+                            // 검색조건에 맞는 구조체이면, 배열에 담는다
+                            filtered_person_array[searched_index] = p21;
+
+                            // 검색 결과 하나씩 출력 !
+                            printf("Searched data %d : name - %s, number - %s \n", searched_index + 1, filtered_person_array[searched_index]->name, filtered_person_array[searched_index]->pNumber);
+
+                            searched_index++;
                         }
 
                         free(p21);
@@ -118,6 +127,8 @@ int searchInfo()
                     }
                 }
 
+                printf("number of matched : %d \n", searched_index);
+                // todo : show matched result....
                 fclose(fp);
             }
         }

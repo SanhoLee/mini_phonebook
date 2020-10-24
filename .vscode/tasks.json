@@ -3,8 +3,8 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: gcc build active file",
-			"command": "/usr/bin/gcc",
+			"label": "C/C++: clang build active file",
+			"command": "/usr/bin/clang",
 			"args": [
 				"-g",
 				"${file}",
@@ -18,7 +18,7 @@
 				"$gcc"
 			],
 			"group": "build",
-			"detail": "compiler: /usr/bin/gcc"
+			"detail": "compiler: /usr/bin/clang"
 		}
 	]
 }
