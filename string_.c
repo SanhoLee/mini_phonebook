@@ -23,6 +23,7 @@ person *splitString(char *original_string)
     // save on struct address by using array elemet.
     strcpy(p->name, str_array[0]);
     strcpy(p->pNumber, str_array[1]);
+    p->info_index = 0;
 
     return p;
 }
