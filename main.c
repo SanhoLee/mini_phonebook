@@ -47,7 +47,8 @@ int main()
         }
         else if (user_choice == '5')
         {
-            printf("*----- showAll -----* \n\n");
+            printf("*-----  showAll  -----* \n\n");
+            printf("No. Name , Number \n");
             FILE *fp;
             fp = fopen(FILE_NAME, "r");
             if (fp == NULL)
@@ -59,8 +60,8 @@ int main()
             i = 0;
             while (!feof(fp))
             {
-                char one_line[100] = "";
-                fgets(one_line, 100, fp);
+                char one_line[40] = "";
+                fgets(one_line, 40, fp);
                 printf("%d. %s", i + 1, one_line);
                 i++;
             }

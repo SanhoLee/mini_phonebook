@@ -12,6 +12,9 @@ int addPerson()
     in : name(str), phone number(str)
     out : write the info on csv file.
     */
+
+    long size;
+
     person *p1 = malloc(sizeof(person));
     printf("\n NAME : ");
     scanf("%s", p1->name);
@@ -29,10 +32,16 @@ int addPerson()
         printf("Write Error \n");
         return 1;
     }
+
+    size = ftell(fp);
+
+    if (size != 0)
+    {
+        fputs("\n", fp);
+    }
     fputs(p1->name, fp);
     fputs(",", fp);
     fputs(p1->pNumber, fp);
-    fputs("\n", fp);
     free(p1);
     fclose(fp);
 
@@ -77,7 +86,7 @@ int searchInfo()
             printf("\n Canceled...\n");
             return 0;
         }
-        else if (search_by == '1')
+        else if (search_by == SEARCH_NAME)
         {
             // searching by name.--------------------------
             printf("\n searching by name : ");
@@ -104,9 +113,11 @@ int searchInfo()
                 // filtering person info by search term entered.
                 while (!feof(fp))
                 {
-                    char single_line[40];
+                    char single_line[40] = "";
                     if (fgets(single_line, 40, fp))
                     {
+                        // delete return charater "\n" at end of string.
+                        single_line[strlen(single_line) - 1] = '\0';
                         // split line by delimeter , and make struct data.
                         person *p21 = splitString(single_line);
 
@@ -142,10 +153,72 @@ int searchInfo()
                 fclose(fp);
             }
         }
-        else if (search_by == '2')
+        else if (search_by == SEARCH_NUMBER)
         {
             // searching by phone number.
-            printf("\n searching by number...\n");
+            printf("\n searching by number : ");
+            scanf("%s", search_input);
+            getchar();
+
+            FILE *fp;
+            fp = fopen(FILE_NAME, "r");
+
+            // check if target file is exist or not.
+            if (fp == NULL)
+            {
+                printf("No file specified on diretory. \n");
+                return 0;
+            }
+            else
+            {
+                // 구조체를 자료형을 가지는 배열을 선언
+                // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
+                person *filtered_person_array[30] = {};
+                int searched_index = 0;
+                int i = 0;
+
+                // filtering person info by search term entered.
+                while (!feof(fp))
+                {
+                    char single_line[40] = "";
+                    if (fgets(single_line, 40, fp))
+                    {
+                        // delete return charater "\n" at end of string.
+                        single_line[strlen(single_line) - 1] = '\0';
+                        // split line by delimeter , and make struct data.
+                        person *p21 = splitString(single_line);
+
+                        // get the order among total info elements.
+                        p21->info_index = i + 1;
+
+                        // compare two string element. if true, it returns 0.
+                        if (!strcmp(search_input, p21->pNumber))
+                        {
+                            // 검색조건에 맞는 구조체이면, 배열에 담는다
+                            filtered_person_array[searched_index] = p21;
+                            searched_index++;
+                        }
+                        // Global index increase..
+                        i++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                // show matched result....
+                printf("number of matched : %d \n", searched_index);
+                for (i = 0; i < searched_index; i++)
+                {
+                    printf("%d. %s %s\n",
+                           filtered_person_array[i]->info_index,
+                           filtered_person_array[i]->name,
+                           filtered_person_array[i]->pNumber);
+                }
+
+                fclose(fp);
+            }
         }
         else
         {

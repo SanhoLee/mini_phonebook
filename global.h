@@ -4,6 +4,9 @@
 #define delimeter ","
 #define FILE_NAME "phone-number.csv"
 
+#define SEARCH_NAME '1'
+#define SEARCH_NUMBER '2'
+
 typedef struct
 {
     /* data */
