@@ -5,6 +5,8 @@
 #include "global.h"
 #include "string_.h"
 
+void showMatchedResult(int search_index, person *matched_person[30]);
+
 int addPerson()
 {
     /* 
@@ -86,30 +88,31 @@ int searchInfo()
             printf("\n Canceled...\n");
             return 0;
         }
-        else if (search_by == SEARCH_NAME)
+        else if (search_by == SEARCH_NAME || search_by == SEARCH_NUMBER)
         {
-            // searching by name.--------------------------
-            printf("\n searching by name : ");
-            scanf("%s", search_input);
-            getchar();
 
             FILE *fp;
             fp = fopen(FILE_NAME, "r");
-
             // check if target file is exist or not.
             if (fp == NULL)
             {
                 printf("No file specified on diretory. \n");
                 return 0;
             }
-            else
-            {
-                // 구조체를 자료형을 가지는 배열을 선언
-                // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
-                person *filtered_person_array[30] = {};
-                int searched_index = 0;
-                int i = 0;
 
+            // 구조체를 자료형을 가지는 배열을 선언
+            // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
+            person *filtered_person_array[30];
+            int searched_index = 0;
+            int i = 0;
+
+            switch (search_by)
+            {
+            case SEARCH_NAME:
+                // searching by name.--------------------------
+                printf("\n searching by name : ");
+                scanf("%s", search_input);
+                getchar();
                 // filtering person info by search term entered.
                 while (!feof(fp))
                 {
@@ -141,41 +144,16 @@ int searchInfo()
                 }
 
                 // show matched result....
-                printf("number of matched : %d \n", searched_index);
-                for (i = 0; i < searched_index; i++)
-                {
-                    printf("%d. %s %s",
-                           filtered_person_array[i]->info_index,
-                           filtered_person_array[i]->name,
-                           filtered_person_array[i]->pNumber);
-                }
+                showMatchedResult(searched_index, filtered_person_array);
 
                 fclose(fp);
-            }
-        }
-        else if (search_by == SEARCH_NUMBER)
-        {
-            // searching by phone number.
-            printf("\n searching by number : ");
-            scanf("%s", search_input);
-            getchar();
+                break;
 
-            FILE *fp;
-            fp = fopen(FILE_NAME, "r");
-
-            // check if target file is exist or not.
-            if (fp == NULL)
-            {
-                printf("No file specified on diretory. \n");
-                return 0;
-            }
-            else
-            {
-                // 구조체를 자료형을 가지는 배열을 선언
-                // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
-                person *filtered_person_array[30] = {};
-                int searched_index = 0;
-                int i = 0;
+            case SEARCH_NUMBER:
+                // searching by number.--------------------------
+                printf("\n searching by number : ");
+                scanf("%s", search_input);
+                getchar();
 
                 // filtering person info by search term entered.
                 while (!feof(fp))
@@ -208,21 +186,47 @@ int searchInfo()
                 }
 
                 // show matched result....
-                printf("number of matched : %d \n", searched_index);
-                for (i = 0; i < searched_index; i++)
-                {
-                    printf("%d. %s %s\n",
-                           filtered_person_array[i]->info_index,
-                           filtered_person_array[i]->name,
-                           filtered_person_array[i]->pNumber);
-                }
+                showMatchedResult(searched_index, filtered_person_array);
 
                 fclose(fp);
+                break;
+            default:
+                //
+                break;
             }
         }
         else
         {
             printf("Input Error. You should select from specified number or C(cancel) \n");
         }
+    }
+}
+
+void showAll(FILE *fp)
+{
+    int i = 0;
+
+    while (!feof(fp))
+    {
+        char one_line[40] = "";
+        fgets(one_line, 40, fp);
+        printf("%d. %s", i + 1, one_line);
+        i++;
+    }
+    printf("\n\nLIST END\n");
+    fclose(fp);
+}
+
+void showMatchedResult(int search_index, person *matched_person[30])
+{
+    // show matched result....
+    int i = 0;
+    printf("number of matched : %d \n", search_index);
+    for (i = 0; i < search_index; i++)
+    {
+        printf("%d. %s %s",
+               matched_person[i]->info_index,
+               matched_person[i]->name,
+               matched_person[i]->pNumber);
     }
 }
