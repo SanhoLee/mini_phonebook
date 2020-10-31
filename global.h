@@ -7,6 +7,9 @@
 #define SEARCH_NAME '1'
 #define SEARCH_NUMBER '2'
 
+#define VALUE "value"
+#define PTR "ptr"
+
 typedef struct
 {
     /* data */

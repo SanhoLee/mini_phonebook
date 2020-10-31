@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -26,4 +27,24 @@ person *splitString(char *original_string)
     p->info_index = 0;
 
     return p;
+}
+
+int checkTotalLines(FILE *fp)
+{
+    // fp : 파일은 fopen 한 상태에서 호출해야함.
+    int line_index = 0;
+    char temp_string[40] = "";
+
+    while (!feof(fp))
+    {
+        fgets(temp_string, 40, fp);
+        line_index++;
+    }
+    return line_index;
+}
+
+char *deleteEndNull(char *original_string)
+{
+    original_string[strlen(original_string) - 1] = '\0';
+    return original_string;
 }

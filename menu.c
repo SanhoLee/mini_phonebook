@@ -14,6 +14,7 @@ int addPerson()
     in : name(str), phone number(str)
     out : write the info on csv file.
     */
+    printf("\n*----- addPerson -----* \n\n");
 
     long size;
 
@@ -120,7 +121,7 @@ int searchInfo()
                     if (fgets(single_line, 40, fp))
                     {
                         // delete return charater "\n" at end of string.
-                        single_line[strlen(single_line) - 1] = '\0';
+                        deleteEndNull(single_line);
                         // split line by delimeter , and make struct data.
                         person *p21 = splitString(single_line);
 
@@ -198,11 +199,13 @@ int searchInfo()
         else
         {
             printf("Input Error. You should select from specified number or C(cancel) \n");
+            return 1;
         }
     }
+    return 0;
 }
 
-void showAll(FILE *fp)
+void printAll(FILE *fp)
 {
     int i = 0;
 
@@ -217,6 +220,22 @@ void showAll(FILE *fp)
     fclose(fp);
 }
 
+int showAll()
+{
+    FILE *fp;
+    fp = fopen(FILE_NAME, "r");
+    if (fp == NULL)
+    {
+        printf("File Input Error. \n");
+        return 0;
+    }
+    else
+    {
+        printAll(fp);
+    }
+    fclose(fp);
+    return 0;
+}
 void showMatchedResult(int search_index, person *matched_person[30])
 {
     // show matched result....
@@ -224,9 +243,58 @@ void showMatchedResult(int search_index, person *matched_person[30])
     printf("number of matched : %d \n", search_index);
     for (i = 0; i < search_index; i++)
     {
-        printf("%d. %s %s",
+        printf("%d. %s %s\n",
                matched_person[i]->info_index,
                matched_person[i]->name,
                matched_person[i]->pNumber);
     }
+}
+
+person *getPersonInfo(char *fileName)
+{
+    /*
+
+    input(string) : filename for read/write.
+    return(array of struct) : pAll - array of persons info.
+    
+    */
+    FILE *fp = fopen(fileName, "r");
+    if (fp == NULL)
+    {
+        printf("getPersonInfo File Input ERROR ! \n");
+    }
+    rewind(fp);
+
+    char temp_string[40] = "";
+    person *pAll = (person *)malloc(sizeof(person) * 20);
+    person *pOne;
+
+    fgets(temp_string, 40, fp);
+    deleteEndNull(temp_string);
+    pOne = splitString(temp_string);
+    pAll[0].info_index = 1;
+    strcpy(pAll[0].name, pOne->name);
+    strcpy(pAll[0].pNumber, pOne->pNumber);
+
+    fgets(temp_string, 40, fp);
+    deleteEndNull(temp_string);
+    pOne = splitString(temp_string);
+    pAll[1].info_index = 2;
+    strcpy(pAll[1].name, pOne->name);
+    strcpy(pAll[1].pNumber, pOne->pNumber);
+
+    fgets(temp_string, 40, fp);
+    deleteEndNull(temp_string);
+    pOne = splitString(temp_string);
+    pAll[2].info_index = 3;
+    strcpy(pAll[2].name, pOne->name);
+    strcpy(pAll[2].pNumber, pOne->pNumber);
+
+    printf("%d. %s ** %s \n", pAll[0].info_index, pAll[0].name, pAll[0].pNumber);
+    printf("%d. %s ** %s \n", pAll[1].info_index, pAll[1].name, pAll[1].pNumber);
+    printf("%d. %s ** %s \n", pAll[2].info_index, pAll[2].name, pAll[2].pNumber);
+
+    fclose(fp);
+
+    return pAll;
 }

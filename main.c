@@ -17,7 +17,7 @@ int main()
         printf("2. search \n");
         printf("3. update \n");
         printf("4. delete \n");
-        printf("5. showAll \n");
+        printf("5. printAll \n");
         printf("9. EXIT \n");
         printf("\nSelect ? ");
         scanf("%c", &user_choice);
@@ -42,21 +42,35 @@ int main()
         }
         else if (user_choice == '4')
         {
-            printf("delete");
+            printf("\n*----- delete -----* \n\n");
+
+            // show all person infos.
+            int iret = 0;
+            iret = showAll();
+
+            // delete function start.
+            int delete_number = 0;
+            int line_index = 0;
+
+            printf("\ndelete by NUMBER : ");
+            scanf("%d", &delete_number);
+            getchar();
+
+            // p4 : array type data
+            person *p4 = getPersonInfo(FILE_NAME);
+
+            printf("*main* %d. %s ** %s \n", p4[0].info_index, p4[0].name, p4[0].pNumber);
+            printf("*main* %d. %s ** %s \n", p4[1].info_index, p4[1].name, p4[1].pNumber);
+            printf("*main* %d. %s ** %s \n", p4[2].info_index, p4[2].name, p4[2].pNumber);
+
+            free(p4);
+
+            // check whether picking person by index.
         }
         else if (user_choice == '5')
         {
-            FILE *fp;
-            fp = fopen(FILE_NAME, "r");
-            if (fp == NULL)
-            {
-                printf("Write Error. \n");
-                return 0;
-            }
-            else
-            {
-                showAll(fp);
-            }
+            printf("\n*----- showAll -----* \n\n");
+            showAll();
         }
         else if (user_choice == '9')
         {
