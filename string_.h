@@ -4,7 +4,7 @@
 #include "global.h"
 
 person *splitString(char *original_string);
-int checkTotalLines(FILE *fp);
+int checkTotalLines(char *fileName);
 char *deleteEndNull(char *original_string);
 
 #endif

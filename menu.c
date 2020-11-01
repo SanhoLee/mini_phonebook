@@ -258,41 +258,37 @@ person *getPersonInfo(char *fileName)
     return(array of struct) : pAll - array of persons info.
     
     */
+
+    int i = 0;
+    int i_lines = 0;
+
+    i_lines = checkTotalLines(fileName);
+
     FILE *fp = fopen(fileName, "r");
     if (fp == NULL)
     {
         printf("getPersonInfo File Input ERROR ! \n");
     }
-    rewind(fp);
 
     char temp_string[40] = "";
     person *pAll = (person *)malloc(sizeof(person) * 20);
     person *pOne;
 
-    fgets(temp_string, 40, fp);
-    deleteEndNull(temp_string);
-    pOne = splitString(temp_string);
-    pAll[0].info_index = 1;
-    strcpy(pAll[0].name, pOne->name);
-    strcpy(pAll[0].pNumber, pOne->pNumber);
-
-    fgets(temp_string, 40, fp);
-    deleteEndNull(temp_string);
-    pOne = splitString(temp_string);
-    pAll[1].info_index = 2;
-    strcpy(pAll[1].name, pOne->name);
-    strcpy(pAll[1].pNumber, pOne->pNumber);
-
-    fgets(temp_string, 40, fp);
-    deleteEndNull(temp_string);
-    pOne = splitString(temp_string);
-    pAll[2].info_index = 3;
-    strcpy(pAll[2].name, pOne->name);
-    strcpy(pAll[2].pNumber, pOne->pNumber);
-
-    printf("%d. %s ** %s \n", pAll[0].info_index, pAll[0].name, pAll[0].pNumber);
-    printf("%d. %s ** %s \n", pAll[1].info_index, pAll[1].name, pAll[1].pNumber);
-    printf("%d. %s ** %s \n", pAll[2].info_index, pAll[2].name, pAll[2].pNumber);
+    rewind(fp);
+    while (!feof(fp))
+    {
+        fgets(temp_string, 40, fp);
+        if (i_lines - 1 != i)
+        {
+            // 전화번호 파일의 마지막 줄은 개행문자가 없으므로, 마지막 줄은 제외!
+            deleteEndNull(temp_string);
+        }
+        pOne = splitString(temp_string);
+        pAll[i].info_index = i + 1;
+        strcpy(pAll[i].name, pOne->name);
+        strcpy(pAll[i].pNumber, pOne->pNumber);
+        i++;
+    }
 
     fclose(fp);
 

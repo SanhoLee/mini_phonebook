@@ -29,8 +29,16 @@ person *splitString(char *original_string)
     return p;
 }
 
-int checkTotalLines(FILE *fp)
+int checkTotalLines(char *fileName)
 {
+
+    FILE *fp = fopen(fileName, "r");
+    if (fp == NULL)
+    {
+        printf("checkTotalLines File Input ERROR ! \n");
+    }
+    rewind(fp);
+
     // fp : 파일은 fopen 한 상태에서 호출해야함.
     int line_index = 0;
     char temp_string[40] = "";
@@ -40,6 +48,9 @@ int checkTotalLines(FILE *fp)
         fgets(temp_string, 40, fp);
         line_index++;
     }
+
+    fclose(fp);
+
     return line_index;
 }
 

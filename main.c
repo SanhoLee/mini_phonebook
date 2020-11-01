@@ -11,7 +11,7 @@ int main()
 
     while (1)
     {
-        printf("*----- mini phonebook program -----*\n");
+        printf("\n*----- mini phonebook program -----*\n");
         printf("*-----          menu          -----*\n\n");
         printf("1. add \n");
         printf("2. search \n");
@@ -42,30 +42,60 @@ int main()
         }
         else if (user_choice == '4')
         {
-            printf("\n*----- delete -----* \n\n");
+            printf("*----- delete -----* \n");
 
             // show all person infos.
-            int iret = 0;
-            iret = showAll();
+            showAll();
 
             // delete function start.
+            char delete_confirm;
             int delete_number = 0;
-            int line_index = 0;
+            int total_lines = 0;
 
             printf("\ndelete by NUMBER : ");
             scanf("%d", &delete_number);
             getchar();
 
+            int i_onStruct = 0;
+            i_onStruct = delete_number - 1;
+
             // p4 : array type data
             person *p4 = getPersonInfo(FILE_NAME);
+            total_lines = checkTotalLines(FILE_NAME);
 
-            printf("*main* %d. %s ** %s \n", p4[0].info_index, p4[0].name, p4[0].pNumber);
-            printf("*main* %d. %s ** %s \n", p4[1].info_index, p4[1].name, p4[1].pNumber);
-            printf("*main* %d. %s ** %s \n", p4[2].info_index, p4[2].name, p4[2].pNumber);
+            // check whether delete_number input is correct.
+            if (delete_number > total_lines || delete_number < 1)
+            {
+                printf("ERROR delete number Input. Out of Range ! \n");
+                printf("This Phonebook has %d Person info. \n", total_lines);
+                continue;
+            }
 
+            printf("delete this ? -> %d. %s ** %s ",
+                   p4[i_onStruct].info_index,
+                   p4[i_onStruct].name,
+                   p4[i_onStruct].pNumber);
+            printf("( Y / N ) : ");
+            scanf("%c", &delete_confirm);
+            getchar();
+
+            // Todos...
+            if (delete_confirm == 'Y' || delete_confirm == 'y')
+            {
+                printf("1. delete specified array element.\n");
+                printf("2. re-order the array.\n");
+                printf("3. overwrite on the FILE.\n");
+            }
+            else if (delete_confirm == 'N' || delete_confirm == 'n')
+            {
+                printf("not deleting. \n");
+                continue;
+            }
+            else
+            {
+                printf("ERROR Input. Please Choose Y or N");
+            }
             free(p4);
-
-            // check whether picking person by index.
         }
         else if (user_choice == '5')
         {
