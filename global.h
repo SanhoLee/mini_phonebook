@@ -3,6 +3,7 @@
 
 #define delimeter ","
 #define FILE_NAME "phone-number.csv"
+#define FILE_TEST "test.csv"
 
 #define SEARCH_NAME '1'
 #define SEARCH_NUMBER '2'

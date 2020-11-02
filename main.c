@@ -4,6 +4,7 @@
 #include "global.h"
 #include "menu.h"
 #include "string_.h"
+#include "handleFile.h"
 
 int main()
 {
@@ -82,9 +83,25 @@ int main()
             // Todos...
             if (delete_confirm == 'Y' || delete_confirm == 'y')
             {
-                printf("1. delete specified array element.\n");
-                printf("2. re-order the array.\n");
-                printf("3. overwrite on the FILE.\n");
+                // Delete the specified element by overwriting and update total number of array and its order.
+                while (i_onStruct != total_lines)
+                {
+                    p4[i_onStruct] = p4[i_onStruct + 1];
+                    p4[i_onStruct].info_index--;
+                    i_onStruct++;
+                }
+                // updating total person info.
+                total_lines--;
+
+                printf("Person List after Deleting a Element. \n\n");
+                for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
+                {
+                    printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
+                }
+
+                printf("\n3. overwrite on the FILE.\n");
+                // write on test file...
+                writePInfo2File(FILE_TEST, p4);
             }
             else if (delete_confirm == 'N' || delete_confirm == 'n')
             {

@@ -54,6 +54,18 @@ int checkTotalLines(char *fileName)
     return line_index;
 }
 
+int getTotalPersonNum(person *p1)
+{
+    // p1 is array type of person struct data.
+    int i = 0;
+    while (p1[i].info_index > 0)
+    {
+        i++;
+    }
+
+    return i;
+}
+
 char *deleteEndNull(char *original_string)
 {
     original_string[strlen(original_string) - 1] = '\0';
