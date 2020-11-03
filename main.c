@@ -101,7 +101,7 @@ int main()
 
                 printf("\n3. overwrite on the FILE.\n");
                 // write on test file...
-                writePInfo2File(FILE_TEST, p4);
+                writePInfo2File(FILE_NAME, p4);
             }
             else if (delete_confirm == 'N' || delete_confirm == 'n')
             {
