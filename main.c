@@ -83,24 +83,29 @@ int main()
             // Todos...
             if (delete_confirm == 'Y' || delete_confirm == 'y')
             {
-                // Delete the specified element by overwriting and update total number of array and its order.
-                while (i_onStruct != total_lines)
+                if (total_lines == 1)
                 {
-                    p4[i_onStruct] = p4[i_onStruct + 1];
-                    p4[i_onStruct].info_index--;
-                    i_onStruct++;
+                    printf("one element left,,,,,\n");
+                    p4 = NULL;
                 }
-                // updating total person info.
-                total_lines--;
-
-                printf("Person List after Deleting a Element. \n\n");
-                for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
+                else
                 {
-                    printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
+                    // Delete the specified element by overwriting and update total number of array and its order.
+                    while (i_onStruct != total_lines)
+                    {
+                        p4[i_onStruct] = p4[i_onStruct + 1];
+                        p4[i_onStruct].info_index--;
+                        i_onStruct++;
+                    }
+                    // updating total person info.
+                    total_lines--;
+                    printf("Person List after Deleting a Element. \n\n");
+                    for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
+                    {
+                        printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
+                    }
+                    // write on test file...
                 }
-
-                printf("\n3. overwrite on the FILE.\n");
-                // write on test file...
                 writePInfo2File(FILE_NAME, p4);
             }
             else if (delete_confirm == 'N' || delete_confirm == 'n')

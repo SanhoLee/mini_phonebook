@@ -16,22 +16,29 @@ void writePInfo2File(char *fileName, person *p)
     // file open for writing mode. It will overwrites the file contents what it has previously.
     FILE *fp = fopen(fileName, "w");
 
-    // write 1st element on the file.
-    strcpy(string_bucket, p[i].name);
-    strcat(string_bucket, ",");
-    strcat(string_bucket, p[i].pNumber);
-    fputs(string_bucket, fp);
-
-    i++;
-    // loop from 2nd element till the end element.
-    while (getTotalPersonNum(p) != i)
+    if (p == NULL)
     {
-        fputs("\n", fp);
+        printf("now, no element in PhoneBook. \n");
+    }
+    else
+    {
+        // write 1st element on the file.
         strcpy(string_bucket, p[i].name);
         strcat(string_bucket, ",");
         strcat(string_bucket, p[i].pNumber);
         fputs(string_bucket, fp);
+
         i++;
+        // loop from 2nd element till the end element.
+        while (getTotalPersonNum(p) != i)
+        {
+            fputs("\n", fp);
+            strcpy(string_bucket, p[i].name);
+            strcat(string_bucket, ",");
+            strcat(string_bucket, p[i].pNumber);
+            fputs(string_bucket, fp);
+            i++;
+        }
     }
 
     fclose(fp);
