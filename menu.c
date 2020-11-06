@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "global.h"
 #include "string_.h"
+#include "handleFile.h"
 
 void showMatchedResult(int search_index, person *matched_person[30]);
 
@@ -293,4 +294,152 @@ person *getPersonInfo(char *fileName)
     fclose(fp);
 
     return pAll;
+}
+
+int deletePerson(char *fileName)
+{
+
+    printf("*----- delete -----* \n");
+
+    // show all person infos.
+    showAll();
+
+    // delete function start.
+    char delete_confirm;
+    int delete_number = 0;
+    int total_lines = 0;
+
+    printf("\n DELETE BY NUMBER : ");
+    scanf("%d", &delete_number);
+    getchar();
+
+    int i_onStruct = 0;
+    i_onStruct = delete_number - 1;
+
+    // p4 : array type data
+    person *p4 = getPersonInfo(fileName);
+    total_lines = checkTotalLines(fileName);
+
+    // check whether delete_number input is correct.
+    if (delete_number > total_lines || delete_number < 1)
+    {
+        printf("ERROR delete number Input. Out of Range ! \n");
+        printf("This Phonebook has %d Person info. \n", total_lines);
+        return 1;
+    }
+
+    printf("delete this ? -> %d. %s ** %s ",
+           p4[i_onStruct].info_index,
+           p4[i_onStruct].name,
+           p4[i_onStruct].pNumber);
+    printf("( Y / N ) : ");
+    scanf("%c", &delete_confirm);
+    getchar();
+
+    if (delete_confirm == 'Y' || delete_confirm == 'y')
+    {
+        if (total_lines == 1)
+        {
+            printf("one element left,,,,,\n");
+            p4 = NULL;
+        }
+        else
+        {
+            // Delete the specified element by overwriting and update total number of array and its order.
+            while (i_onStruct != total_lines)
+            {
+                p4[i_onStruct] = p4[i_onStruct + 1];
+                p4[i_onStruct].info_index--;
+                i_onStruct++;
+            }
+            // updating total person info.
+            total_lines--;
+            printf("Person List after Deleting a Element. \n\n");
+            for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
+            {
+                printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
+            }
+            // write on test file...
+        }
+        writePInfo2File(fileName, p4);
+    }
+    else if (delete_confirm == 'N' || delete_confirm == 'n')
+    {
+        printf("not deleting. \n");
+        return 0;
+    }
+    else
+    {
+        printf("ERROR Input. Please Choose Y or N");
+    }
+    free(p4);
+    return 0;
+}
+
+int updatePerson(char *fileName)
+{
+    printf("*----- update -----* \n");
+
+    // show all person infos.
+    showAll();
+
+    // delete function start.
+    char update_confirm;
+    int update_number = 0;
+    char new_name[20] = "";
+    char new_number[20] = "";
+    int total_lines = 0;
+    total_lines = checkTotalLines(fileName);
+
+    printf("\nSELECT BY NUMBER : ");
+    scanf("%d", &update_number);
+    getchar();
+
+    int i_onStruct = 0;
+    i_onStruct = update_number - 1;
+
+    // p4 : array type data
+    person *p3 = getPersonInfo(fileName);
+    printf("UPDATE PERSON : %d. %s *** %s \n",
+           p3[i_onStruct].info_index,
+           p3[i_onStruct].name,
+           p3[i_onStruct].pNumber);
+
+    printf("NEW NAME : ");
+    scanf("%s", new_name);
+    getchar();
+    printf("NEW NUMBER : ");
+    scanf("%s", new_number);
+    getchar();
+
+    printf("Are you sure ? ( Y / N ) : ");
+    scanf("%c", &update_confirm);
+    getchar();
+
+    // Todo : make this process as a function.
+    // update the struct p3 element and write updated struct p3 on the file.
+    if (update_confirm == 'Y' || update_confirm == 'y')
+    {
+        // initialize name and pNumber
+        strcpy(p3[i_onStruct].name, "");
+        strcpy(p3[i_onStruct].pNumber, "");
+
+        // write new name and number on the specified struct element.
+        strcpy(p3[i_onStruct].name, new_name);
+        strcpy(p3[i_onStruct].pNumber, new_number);
+
+        // write updated p3 on the file.
+        writePInfo2File(fileName, p3);
+    }
+    else if (update_confirm == 'N' || update_confirm == 'n')
+    {
+        printf("Cancel Info Update. \n");
+    }
+    else
+    {
+        printf("Wrong Input. It takes Y or N \n");
+    }
+
+    free(p3);
+    return 0;
 }

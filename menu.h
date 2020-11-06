@@ -2,10 +2,12 @@
 #define MENU_H
 #include "global.h"
 
-int add_person();
+int addPerson();
 int searchInfo();
 void printAll(FILE *fp);
 int showAll();
 person *getPersonInfo(char *fileName);
+int deletePerson(char *fileName);
+int updatePerson(char *fileName);
 
 #endif

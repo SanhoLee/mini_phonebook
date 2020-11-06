@@ -39,85 +39,14 @@ int main()
         }
         else if (user_choice == '3')
         {
-            printf("update");
+            // Todos...
+            updatePerson(FILE_NAME);
         }
         else if (user_choice == '4')
         {
-            printf("*----- delete -----* \n");
-
-            // show all person infos.
-            showAll();
-
-            // delete function start.
-            char delete_confirm;
-            int delete_number = 0;
-            int total_lines = 0;
-
-            printf("\ndelete by NUMBER : ");
-            scanf("%d", &delete_number);
-            getchar();
-
-            int i_onStruct = 0;
-            i_onStruct = delete_number - 1;
-
-            // p4 : array type data
-            person *p4 = getPersonInfo(FILE_NAME);
-            total_lines = checkTotalLines(FILE_NAME);
-
-            // check whether delete_number input is correct.
-            if (delete_number > total_lines || delete_number < 1)
-            {
-                printf("ERROR delete number Input. Out of Range ! \n");
-                printf("This Phonebook has %d Person info. \n", total_lines);
-                continue;
-            }
-
-            printf("delete this ? -> %d. %s ** %s ",
-                   p4[i_onStruct].info_index,
-                   p4[i_onStruct].name,
-                   p4[i_onStruct].pNumber);
-            printf("( Y / N ) : ");
-            scanf("%c", &delete_confirm);
-            getchar();
-
             // Todos...
-            if (delete_confirm == 'Y' || delete_confirm == 'y')
-            {
-                if (total_lines == 1)
-                {
-                    printf("one element left,,,,,\n");
-                    p4 = NULL;
-                }
-                else
-                {
-                    // Delete the specified element by overwriting and update total number of array and its order.
-                    while (i_onStruct != total_lines)
-                    {
-                        p4[i_onStruct] = p4[i_onStruct + 1];
-                        p4[i_onStruct].info_index--;
-                        i_onStruct++;
-                    }
-                    // updating total person info.
-                    total_lines--;
-                    printf("Person List after Deleting a Element. \n\n");
-                    for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
-                    {
-                        printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
-                    }
-                    // write on test file...
-                }
-                writePInfo2File(FILE_NAME, p4);
-            }
-            else if (delete_confirm == 'N' || delete_confirm == 'n')
-            {
-                printf("not deleting. \n");
-                continue;
-            }
-            else
-            {
-                printf("ERROR Input. Please Choose Y or N");
-            }
-            free(p4);
+            // make function for delete, and makes it prettier.
+            deletePerson(FILE_NAME);
         }
         else if (user_choice == '5')
         {
