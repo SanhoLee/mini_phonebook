@@ -340,8 +340,24 @@ int deletePerson(char *fileName)
     {
         if (total_lines == 1)
         {
-            printf("one element left,,,,,\n");
-            p4 = NULL;
+            printf("last one element deleted ... \n");
+            // make 0 index item to '\0' text.
+            // by using memset
+            // memset(p4[0].info_index, '\0', 1);
+            printf("%d. %s // %s \n",
+                   p4[0].info_index,
+                   p4[0].name,
+                   p4[0].pNumber);
+            printf("%lu. %lu // %lu \n",
+                   sizeof(p4[0].info_index),
+                   sizeof(p4[0].name),
+                   sizeof(p4[0].pNumber));
+            // memset(p4[0].info_index, '\0', sizeof(p4[0].info_index));
+            memset(p4[0].name, '\0', sizeof(p4[0].name));
+            memset(p4[0].pNumber, '\0', sizeof(p4[0].pNumber));
+            printf("after index : %d \n", p4[0].info_index);
+            printf("after name : %s \n", p4[0].name);
+            printf("after pNumber : %s \n", p4[0].pNumber);
         }
         else
         {
@@ -416,7 +432,6 @@ int updatePerson(char *fileName)
     scanf("%c", &update_confirm);
     getchar();
 
-    // Todo : make this process as a function.
     // update the struct p3 element and write updated struct p3 on the file.
     if (update_confirm == 'Y' || update_confirm == 'y')
     {

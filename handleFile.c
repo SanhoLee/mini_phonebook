@@ -3,7 +3,7 @@
 #include "global.h"
 #include "string_.h"
 
-void writePInfo2File(char *fileName, person *p)
+int writePInfo2File(char *fileName, person *p)
 {
     /*
     input:
@@ -16,9 +16,13 @@ void writePInfo2File(char *fileName, person *p)
     // file open for writing mode. It will overwrites the file contents what it has previously.
     FILE *fp = fopen(fileName, "w");
 
+    printf("current person struct size : %lu \n", sizeof(p));
+
     if (p == NULL)
     {
         printf("now, no element in PhoneBook. \n");
+        fclose(fp);
+        return 1;
     }
     else
     {
@@ -39,7 +43,7 @@ void writePInfo2File(char *fileName, person *p)
             fputs(string_bucket, fp);
             i++;
         }
+        fclose(fp);
+        return 0;
     }
-
-    fclose(fp);
 }
