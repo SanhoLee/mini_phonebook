@@ -343,21 +343,10 @@ int deletePerson(char *fileName)
             printf("last one element deleted ... \n");
             // make 0 index item to '\0' text.
             // by using memset
-            // memset(p4[0].info_index, '\0', 1);
-            printf("%d. %s // %s \n",
-                   p4[0].info_index,
-                   p4[0].name,
-                   p4[0].pNumber);
-            printf("%lu. %lu // %lu \n",
-                   sizeof(p4[0].info_index),
-                   sizeof(p4[0].name),
-                   sizeof(p4[0].pNumber));
-            // memset(p4[0].info_index, '\0', sizeof(p4[0].info_index));
             memset(p4[0].name, '\0', sizeof(p4[0].name));
             memset(p4[0].pNumber, '\0', sizeof(p4[0].pNumber));
-            printf("after index : %d \n", p4[0].info_index);
-            printf("after name : %s \n", p4[0].name);
-            printf("after pNumber : %s \n", p4[0].pNumber);
+
+            fileMakeEmpty(fileName);
         }
         else
         {
@@ -376,8 +365,8 @@ int deletePerson(char *fileName)
                 printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
             }
             // write on test file...
+            writePInfo2File(fileName, p4);
         }
-        writePInfo2File(fileName, p4);
     }
     else if (delete_confirm == 'N' || delete_confirm == 'n')
     {

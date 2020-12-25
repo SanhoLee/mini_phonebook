@@ -16,8 +16,6 @@ int writePInfo2File(char *fileName, person *p)
     // file open for writing mode. It will overwrites the file contents what it has previously.
     FILE *fp = fopen(fileName, "w");
 
-    printf("current person struct size : %lu \n", sizeof(p));
-
     if (p == NULL)
     {
         printf("now, no element in PhoneBook. \n");
@@ -46,4 +44,13 @@ int writePInfo2File(char *fileName, person *p)
         fclose(fp);
         return 0;
     }
+}
+
+int fileMakeEmpty(char *fileName)
+{
+    // overwriting to new empty file.
+    FILE *fp = fopen(fileName, "w");
+    fclose(fp);
+
+    return 0;
 }
