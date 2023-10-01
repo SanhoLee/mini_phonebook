@@ -37,6 +37,8 @@ int addPerson()
         return 1;
     }
 
+    // fseek make a role as reseting current stream position.
+    fseek(fp, 0, SEEK_END);
     size = ftell(fp);
 
     if (size != 0)
