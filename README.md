@@ -36,10 +36,13 @@
 ![readAll](img/readAll.gif)
 
 
-
-
-<!-- 전화번호부 프로그램
-
-특징 : 입력, 삭제, 검색, 출력 그리고 전체출력기능으로 작동함
-
-사용언어 : C언어 -->
+## Issues to be fixed
+- [ ] when there is no text file,
+    - [ ] search, it has to check whether the file is exist or not
+    - [ ] update, after checking the file, cursor is unable to move to next.
+    - [ ] delete, after checking the file, it should back to menu, however it asks which number of item would be deleted.
+- [ ] when deleting with written item in the file,
+    - [ ] after stopping and running the program again, when I delete specific item then some buffer text items are written in the file. but target of deleting has no problem. 
+    - [ ] sometimes all items are deleted when conducting delete menu.
+- [ ] Updating item,
+    - [ ] ... 
