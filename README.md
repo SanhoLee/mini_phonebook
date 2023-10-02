@@ -11,24 +11,28 @@
 ## How to work
 - Able to Manipulating the program by entering text information based on the guide shown in console window.
 - It has functions that **Read/Write/Search/Delete** PhoneBook item. 
-- No Database, but you need to create a text file, *```PhoneBook_rev1.txt```*
+- No Database, but text file named *```phone-number.txt```* will be created when you add first item.
 
 
 ## Snapshots 📷
 
 * **Writing(Insert) new Item 📝**
+
 ![write](img/insert.gif)
 
-* **Deleting existed Item**
-(on working...)
 
-![Delete]()
+* **Deleting existed Item 🗑️**
+
+![Delete](img/delete.gif)
 
 
 * **Searching existed Item 🔍**
+
 ![search](img/search.gif)
 
+
 * **Reading and Printing All Item 🖨️**
+
 ![readAll](img/readAll.gif)
 
 
