@@ -36,6 +36,7 @@ int checkTotalLines(char *fileName)
     if (fp == NULL)
     {
         printf("checkTotalLines File Input ERROR ! \n");
+        return -1;
     }
     rewind(fp);
 

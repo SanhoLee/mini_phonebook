@@ -9,5 +9,6 @@ int showAll();
 person *getPersonInfo(char *fileName);
 int deletePerson(char *fileName);
 int updatePerson(char *fileName);
+int isFileExist(char *filename);
 
 #endif

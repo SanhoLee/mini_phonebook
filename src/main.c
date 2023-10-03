@@ -9,6 +9,7 @@
 int main()
 {
     char user_choice;
+    int rtn = 0;
 
     while (1)
     {
@@ -35,23 +36,19 @@ int main()
             get data by name or phone number.
 
             */
-            searchInfo();
+            rtn = searchInfo();
         }
         else if (user_choice == '3')
         {
-            // Todos...
-            updatePerson(FILE_NAME);
+            rtn = updatePerson(FILE_NAME);
         }
         else if (user_choice == '4')
         {
-            // Todos...
-            // make function for delete, and makes it prettier.
-            deletePerson(FILE_NAME);
+            rtn = deletePerson(FILE_NAME);
         }
         else if (user_choice == '5')
         {
-            printf("\n*----- showAll -----* \n\n");
-            showAll();
+            rtn = showAll();
         }
         else if (user_choice == '9')
         {

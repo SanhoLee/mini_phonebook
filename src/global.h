@@ -11,6 +11,19 @@
 #define VALUE "value"
 #define PTR "ptr"
 
+/* define messages */
+#define START_ADD       "*----- ADD -----* \n"
+#define START_SEARCH    "*----- SEARCH -----* \n"
+#define START_UPDATE    "*----- UPDATE -----* \n"
+#define START_DELETE    "*----- DELETE -----* \n"
+#define START_PALL      "*----- PRINT ALL -----* \n"
+
+#define WARN_NO_fileEXIST "There is no Target file. \n"
+
+
+
+
+
 typedef struct
 {
     /* data */

@@ -10,12 +10,12 @@ void showMatchedResult(int search_index, person *matched_person[30]);
 
 int addPerson()
 {
-    /* 
+    /*
     add_person function
     in : name(str), phone number(str)
     out : write the info on csv file.
     */
-    printf("\n*----- addPerson -----* \n\n");
+    printf(START_ADD);
 
     long size;
 
@@ -54,6 +54,25 @@ int addPerson()
     return 0;
 }
 
+int isFileExist(char *filename)
+{
+    /*
+    rtn
+        0 : not exist
+        1 : exist
+    */
+
+    FILE *fp;
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf(WARN_NO_fileEXIST);
+        return 0;
+    }
+
+    return 1;
+}
+
 int searchInfo()
 {
     /*
@@ -76,11 +95,15 @@ int searchInfo()
 
     */
 
-    char search_by;
+    printf(START_SEARCH);
 
+    // checking search target text file.
+    if (!isFileExist(FILE_NAME)) return -1;
+
+    FILE *fp = fopen(FILE_NAME, "r");
+    char search_by;
     while (1)
     {
-        printf("\n*----- search -----* \n\n");
         printf("( 1. name ?  2. Phone Number ? C : Cancel ) : ");
         scanf("%c", &search_by);
         getchar();
@@ -94,15 +117,6 @@ int searchInfo()
         }
         else if (search_by == SEARCH_NAME || search_by == SEARCH_NUMBER)
         {
-
-            FILE *fp;
-            fp = fopen(FILE_NAME, "r");
-            // check if target file is exist or not.
-            if (fp == NULL)
-            {
-                printf("No file specified on diretory. \n");
-                return 0;
-            }
 
             // 구조체를 자료형을 가지는 배열을 선언
             // 임시로 배열 크기는 30으로 지정 -> 추후 전체 데이터 수를 참조해서 크기를 지정하는 방법으로 변경.
@@ -223,20 +237,15 @@ void printAll(FILE *fp)
     fclose(fp);
 }
 
-int showAll()
+int showAll(FILE *fp)
 {
-    FILE *fp;
-    fp = fopen(FILE_NAME, "r");
-    if (fp == NULL)
-    {
-        printf("File Input Error. \n");
-        return 0;
-    }
-    else
-    {
-        printAll(fp);
-    }
+    printf(START_PALL);
+    // checking search target text file.
+    if (!isFileExist(FILE_NAME)) return -1;
+
+    printAll(fp);
     fclose(fp);
+    
     return 0;
 }
 void showMatchedResult(int search_index, person *matched_person[30])
@@ -259,7 +268,7 @@ person *getPersonInfo(char *fileName)
 
     input(string) : filename for read/write.
     return(array of struct) : pAll - array of persons info.
-    
+
     */
 
     int i = 0;
@@ -300,11 +309,15 @@ person *getPersonInfo(char *fileName)
 
 int deletePerson(char *fileName)
 {
-
-    printf("*----- delete -----* \n");
-
+    printf(START_DELETE);
+    int rtn = 0;
+    
+    // checking search target text file.
+    if (!isFileExist(FILE_NAME)) return -1;
+    
     // show all person infos.
-    showAll();
+    FILE *fp = fopen(FILE_NAME, "r");
+    rtn = showAll(fp);
 
     // delete function start.
     char delete_confirm;
@@ -385,10 +398,15 @@ int deletePerson(char *fileName)
 
 int updatePerson(char *fileName)
 {
-    printf("*----- update -----* \n");
+    printf(START_UPDATE);
+    int rtn = 0;
+
+    // checking search target text file.
+    if (!isFileExist(FILE_NAME)) return -1;
 
     // show all person infos.
-    showAll();
+    FILE *fp = fopen(FILE_NAME, "r");
+    rtn = showAll(fp);
 
     // delete function start.
     char update_confirm;
