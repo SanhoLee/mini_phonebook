@@ -99,8 +99,8 @@ int searchInfo()
 
     // checking search target text file.
     if (!isFileExist(FILE_NAME)) return -1;
-
     FILE *fp = fopen(FILE_NAME, "r");
+
     char search_by;
     while (1)
     {
@@ -237,15 +237,15 @@ void printAll(FILE *fp)
     fclose(fp);
 }
 
-int showAll(FILE *fp)
+int showAll(char *filename)
 {
-    printf(START_PALL);
-    // checking search target text file.
-    if (!isFileExist(FILE_NAME)) return -1;
+    if (!isFileExist(filename)) return -1;
+    FILE *fp = fopen(filename, "r");
 
+    // printf(START_PALL);
     printAll(fp);
     fclose(fp);
-    
+
     return 0;
 }
 void showMatchedResult(int search_index, person *matched_person[30])
@@ -311,13 +311,12 @@ int deletePerson(char *fileName)
 {
     printf(START_DELETE);
     int rtn = 0;
-    
+
     // checking search target text file.
-    if (!isFileExist(FILE_NAME)) return -1;
-    
+    if (!isFileExist(fileName)) return -1;
+
     // show all person infos.
-    FILE *fp = fopen(FILE_NAME, "r");
-    rtn = showAll(fp);
+    rtn = showAll(fileName);
 
     // delete function start.
     char delete_confirm;
@@ -405,8 +404,7 @@ int updatePerson(char *fileName)
     if (!isFileExist(FILE_NAME)) return -1;
 
     // show all person infos.
-    FILE *fp = fopen(FILE_NAME, "r");
-    rtn = showAll(fp);
+    rtn = showAll(fileName);
 
     // delete function start.
     char update_confirm;

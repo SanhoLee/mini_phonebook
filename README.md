@@ -1,20 +1,28 @@
-# Mini_PhoneBook 📞
-![home](img/home.gif)
+# Contens
+- [Background⚙️](#background)
+- [How to work🚀](#how-to-work)
+- [Snapshots📷](#snapshots)
+- [Issues to be fixed🛠️](#issues-to-be-fixed)
+<br>
+<br>
 
 
-## ⚙️Background
+
+# Background
 - Intened to make first simple program
 - No Fancy UI, Just console base program.
 - It looks good to me 😎
+<br>
 
+![home](img/home.gif)
 
-## How to work
+# How to work
 - Able to Manipulating the program by entering text information based on the guide shown in console window.
 - It has functions that **Read/Write/Search/Delete** PhoneBook item. 
 - No Database, but text file named *```phone-number.txt```* will be created when you add first item.
 
 
-## Snapshots 📷
+# Snapshots
 
 * **Writing(Insert) new Item 📝**
 
@@ -36,7 +44,7 @@
 ![readAll](img/readAll.gif)
 
 
-## Issues to be fixed
+# Issues to be fixed
 - [x] when there is no text file,
     - [x] search, it has to check whether the file is exist or not
     - [x] update, after checking the file, cursor is unable to move to next.

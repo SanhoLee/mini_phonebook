@@ -5,7 +5,7 @@
 int addPerson();
 int searchInfo();
 void printAll(FILE *fp);
-int showAll();
+int showAll(char *filename);
 person *getPersonInfo(char *fileName);
 int deletePerson(char *fileName);
 int updatePerson(char *fileName);
