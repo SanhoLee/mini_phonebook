@@ -51,5 +51,5 @@
 - [x] when deleting with written item in the file,
     - [x] after stopping and running the program again, when I delete specific item then some buffer text items are written in the file. but target of deleting has no problem. 
     - [x] sometimes all items are deleted when conducting delete menu.
-- [ ] Updating item,
-    - [ ] same behaviour with deleting process.... 
+- [x] Updating item,
+    - [x] same behaviour with deleting process.... 

@@ -441,6 +441,7 @@ int updatePerson(char *fileName)
            p3[i_onStruct].name,
            p3[i_onStruct].pNumber);
 
+    printf("\n");
     printf("NEW NAME : ");
     scanf("%s", new_name);
     getchar();
@@ -456,15 +457,15 @@ int updatePerson(char *fileName)
     if (update_confirm == 'Y' || update_confirm == 'y')
     {
         // initialize name and pNumber
-        strcpy(p3[i_onStruct].name, "");
-        strcpy(p3[i_onStruct].pNumber, "");
+        memset(p3[i_onStruct].name,'\0', sizeof(p3[i_onStruct].name));
+        memset(p3[i_onStruct].pNumber,'\0', sizeof(p3[i_onStruct].pNumber));
 
         // write new name and number on the specified struct element.
         strcpy(p3[i_onStruct].name, new_name);
         strcpy(p3[i_onStruct].pNumber, new_number);
 
         // write updated p3 on the file.
-        writePInfo2File(fileName, p3);
+        writePInfo2File_v2(fileName, p3, total_lines);
     }
     else if (update_confirm == 'N' || update_confirm == 'n')
     {
