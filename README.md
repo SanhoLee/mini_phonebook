@@ -4,7 +4,6 @@
 - [Snapshots📷](#snapshots)
 - [Issues to be fixed🛠️](#issues-to-be-fixed)
 <br>
-<br>
 
 
 
@@ -49,8 +48,8 @@
     - [x] search, it has to check whether the file is exist or not
     - [x] update, after checking the file, cursor is unable to move to next.
     - [x] delete, after checking the file, it should back to menu, however it asks which number of item would be deleted.
-- [ ] when deleting with written item in the file,
-    - [ ] after stopping and running the program again, when I delete specific item then some buffer text items are written in the file. but target of deleting has no problem. 
-    - [ ] sometimes all items are deleted when conducting delete menu.
+- [x] when deleting with written item in the file,
+    - [x] after stopping and running the program again, when I delete specific item then some buffer text items are written in the file. but target of deleting has no problem. 
+    - [x] sometimes all items are deleted when conducting delete menu.
 - [ ] Updating item,
-    - [ ] ... 
+    - [ ] same behaviour with deleting process.... 

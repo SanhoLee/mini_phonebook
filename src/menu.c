@@ -271,20 +271,31 @@ person *getPersonInfo(char *fileName)
 
     */
 
-    int i = 0;
-    int i_lines = 0;
-
-    i_lines = checkTotalLines(fileName);
-
     FILE *fp = fopen(fileName, "r");
     if (fp == NULL)
     {
         printf("getPersonInfo File Input ERROR ! \n");
     }
 
+    int i = 0;
+    int i_lines = 0;
+    i_lines = checkTotalLines(fileName);
+
     char temp_string[40] = "";
-    person *pAll = (person *)malloc(sizeof(person) * 20);
-    person *pOne;
+    person *pAll = (person *)malloc(sizeof(person) * (i_lines));
+    person *pOne = (person *)malloc(sizeof(person));
+
+    // initializing
+    for(int j=0;j<i_lines;j++){
+        pAll[j].info_index = 0;
+        memset(pAll[j].name, '\0', sizeof(pAll[j].name));
+        memset(pAll[j].pNumber, '\0', sizeof(pAll[j].pNumber));
+    }
+
+    pOne[0].info_index = 0;
+    memset(pOne[0].name, '\0', sizeof(pOne[0].name));
+    memset(pOne[0].pNumber, '\0', sizeof(pOne[0].pNumber));
+
 
     rewind(fp);
     while (!feof(fp))
@@ -302,8 +313,8 @@ person *getPersonInfo(char *fileName)
         i++;
     }
 
+    free(pOne);
     fclose(fp);
-
     return pAll;
 }
 
@@ -339,7 +350,7 @@ int deletePerson(char *fileName)
     {
         printf("ERROR delete number Input. Out of Range ! \n");
         printf("This Phonebook has %d Person info. \n", total_lines);
-        return 1;
+        return -1;
     }
 
     printf("delete this ? -> %d. %s ** %s ",
@@ -365,21 +376,23 @@ int deletePerson(char *fileName)
         else
         {
             // Delete the specified element by overwriting and update total number of array and its order.
+            // (1007 Todo..) need to fix, unneccesary info is buffered...
             while (i_onStruct != total_lines)
             {
                 p4[i_onStruct] = p4[i_onStruct + 1];
                 p4[i_onStruct].info_index--;
                 i_onStruct++;
             }
-            // updating total person info.
             total_lines--;
+
+            // write on test file...
+            writePInfo2File_v2(fileName, p4, total_lines);
+
             printf("Person List after Deleting a Element. \n\n");
             for (int i_tmp = 0; i_tmp < total_lines; i_tmp++)
             {
                 printf("%d. %s *** %s \n", p4[i_tmp].info_index, p4[i_tmp].name, p4[i_tmp].pNumber);
             }
-            // write on test file...
-            writePInfo2File(fileName, p4);
         }
     }
     else if (delete_confirm == 'N' || delete_confirm == 'n')
